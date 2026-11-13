@@ -1,0 +1,149 @@
+<UserControl x:Class="UsersApp.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#F6F4F0">
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1.7*" />
+            <RowDefinition Height="1.15*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Головна сторінка" FontSize="26" FontWeight="SemiBold"
+                   Foreground="#47352B" Margin="0,0,0,20" />
+
+        <Border Grid.Row="1" Background="#E9DED3" CornerRadius="14" Margin="0,0,0,20">
+            <Grid>
+                <Ellipse Width="300" Height="300" Fill="#D9B98C" Opacity="0.24"
+                         HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-110,-60,0" />
+                <StackPanel VerticalAlignment="Center" Margin="36">
+                    <TextBlock Text="BEAUTY SALON" FontSize="13" FontWeight="SemiBold"
+                               Foreground="#80614B" />
+                    <TextBlock Text="Робочий простір салону" FontSize="28" FontWeight="SemiBold"
+                               Foreground="#47352B" Margin="0,10,0,0" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1.1*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="White" CornerRadius="14" Padding="18">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Замовлення сьогодні" FontSize="18" FontWeight="SemiBold"
+                               Foreground="#47352B" />
+                    <Grid Grid.Row="1" Margin="0,16,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="1.2*" />
+                            <ColumnDefinition Width="1.2*" />
+                            <ColumnDefinition Width="1.2*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Час" FontSize="12" FontWeight="SemiBold" Foreground="#7D7168" />
+                        <TextBlock Grid.Column="1" Text="Клієнт" FontSize="12" FontWeight="SemiBold" Foreground="#7D7168" />
+                        <TextBlock Grid.Column="2" Text="Послуга" FontSize="12" FontWeight="SemiBold" Foreground="#7D7168" />
+                        <TextBlock Grid.Column="3" Text="Майстер" FontSize="12" FontWeight="SemiBold" Foreground="#7D7168" />
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <ListView x:Name="ordersList" Background="Transparent" BorderThickness="0"
+                                  Padding="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="Margin" Value="0,0,0,6" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#F8F7F4" CornerRadius="8" Padding="10,9">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="1.2*" />
+                                                <ColumnDefinition Width="1.2*" />
+                                                <ColumnDefinition Width="1.2*" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding OrderTime}" Foreground="#47352B" />
+                                            <TextBlock Grid.Column="1" Text="{Binding ClientName}" Foreground="#47352B" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Grid.Column="2" Text="{Binding ServiceName}" Foreground="#47352B" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Grid.Column="3" Text="{Binding MasterName}" Foreground="#47352B" TextTrimming="CharacterEllipsis" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <TextBlock x:Name="emptyOrdersText" Text="На цей день замовлень немає"
+                                   Foreground="#7D7168" HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" IsHitTestVisible="False" />
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" Background="White" CornerRadius="14" Padding="18" Margin="16,0,0,0">
+                <Button Content="Додати замовлення" Click="ShowOrderEditor_Click"
+                        Height="46" Background="#80614B" Foreground="White"
+                        FontSize="14" FontWeight="SemiBold" BorderThickness="0"
+                        VerticalAlignment="Top" />
+            </Border>
+        </Grid>
+
+        <Grid x:Name="orderEditorOverlay" Grid.RowSpan="3" Panel.ZIndex="10"
+              Background="#80000000" Visibility="Collapsed">
+            <Border Width="460" MaxHeight="640" Padding="28" Background="White"
+                    CornerRadius="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="Нове замовлення" FontSize="22" FontWeight="SemiBold"
+                                   Foreground="#47352B" Margin="0,0,0,20" />
+
+                        <TextBlock Text="Клієнт" FontWeight="SemiBold" Foreground="#59483E" />
+                        <ComboBox x:Name="clientComboBox" DisplayMemberPath="FullName"
+                                  SelectedValuePath="ClientID" Margin="0,6,0,14" Padding="8" />
+
+                        <TextBlock Text="Майстер" FontWeight="SemiBold" Foreground="#59483E" />
+                        <ComboBox x:Name="masterComboBox" DisplayMemberPath="FullName"
+                                  SelectedValuePath="MasterID" Margin="0,6,0,14" Padding="8" />
+
+                        <TextBlock Text="Послуга" FontWeight="SemiBold" Foreground="#59483E" />
+                        <ComboBox x:Name="serviceComboBox" DisplayMemberPath="ServiceName"
+                                  SelectedValuePath="ServiceID" SelectionChanged="ServiceComboBox_SelectionChanged"
+                                  Margin="0,6,0,14" Padding="8" />
+
+                        <TextBlock Text="Дата" FontWeight="SemiBold" Foreground="#59483E" />
+                        <DatePicker x:Name="orderDatePicker" Margin="0,6,0,14" />
+
+                        <TextBlock Text="Час (ГГ:ХХ)" FontWeight="SemiBold" Foreground="#59483E" />
+                        <TextBox x:Name="orderTimeTextBox" MaxLength="5" Margin="0,6,0,14"
+                                 Padding="8" />
+
+                        <TextBlock Text="Вартість" FontWeight="SemiBold" Foreground="#59483E" />
+                        <TextBlock x:Name="orderPriceText" Text="Оберіть послугу"
+                                   Foreground="#7D7168" Margin="0,6,0,14" />
+
+                        <TextBlock x:Name="orderFormErrorText" Foreground="#A33B32"
+                                   TextWrapping="Wrap" Margin="0,0,0,10" />
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="Скасувати" Click="CancelOrder_Click"
+                                    Margin="0,0,10,0" Padding="14,8" />
+                            <Button Content="Створити" Click="SaveOrder_Click"
+                                    Background="#80614B" Foreground="White" BorderThickness="0"
+                                    Padding="16,8" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -6,37 +6,71 @@
         xmlns:local="clr-namespace:UsersApp"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Додаток для користувачів" Height="450" Width="800" Cursor="">
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="Loaded">
-            <BeginStoryboard>
-                <Storyboard TargetProperty="Width" TargetName="authButton">
-                    <DoubleAnimation From="0" 
-                                     To="450"
-                                     AutoReverse="True"
-                                     RepeatBehavior="4x"
-                                     Duration="0:0:3"/>
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>
-    </Window.Triggers>
-    
-    <Grid Background="#205637">
-        <Border MinWidth="400" Margin="15" Background="White" VerticalAlignment="Center" Padding="30" MaxWidth="550" CornerRadius="20">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="30" Color="LightGreen" ShadowDepth="0"></DropShadowEffect>
-            </Border.Effect>
-            <StackPanel>
-                <TextBlock Text="Авторизація" FontSize="30" FontWeight="Bold" Margin="0 0 0 20"/>
+        Title="Beauty Salon — вхід співробітника"
+        Height="650" Width="1040" MinHeight="580" MinWidth="860"
+        WindowStartupLocation="CenterScreen" Background="#F6F4F0">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.9*" />
+            <ColumnDefinition Width="1.1*" />
+        </Grid.ColumnDefinitions>
 
-                <Grid Margin="0 0 0 20">
-                    <Button HorizontalAlignment="Left" Content="Реєстрація" Click="Button_Reg_Click"></Button>
-                    <Button HorizontalAlignment="Right" Content="Увійти" Style="{StaticResource MaterialDesignFlatButton}"></Button>
-                </Grid>
-                <TextBox x:Name="textBoxLogin" materialDesign:HintAssist.Hint="Ведіть логін" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                <PasswordBox x:Name="passBox" materialDesign:HintAssist.Hint="Ведіть пароль" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"></PasswordBox>
-                <Button Content="Увійти в кабінет" x:Name="authButton" Margin=" 0 20" Click="Button_Auth_Click"></Button>
+        <Grid Grid.Column="0" Background="#47352B">
+            <Ellipse Width="340" Height="340" Fill="#60483B" Opacity="0.55"
+                     HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-110,-125,0" />
+            <Ellipse Width="240" Height="240" Fill="#B49A84" Opacity="0.12"
+                     HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-100,0,0,-100" />
+            <StackPanel Margin="58,54,48,48" VerticalAlignment="Center">
+                <TextBlock Text="BEAUTY SALON" FontSize="15" FontWeight="SemiBold" Foreground="#D9B98C" />
+                <TextBlock Text="Раді бачити&#10;вас знову" FontSize="38" FontWeight="SemiBold"
+                           Foreground="#FFFDF8" LineHeight="46" Margin="0,18,0,16" />
+                <TextBlock Text="Увійдіть до робочого кабінету, щоб продовжити роботу команди."
+                           FontSize="16" Foreground="#E1D6CC" TextWrapping="Wrap" LineHeight="25" />
+                <Border Height="1" Background="#796458" Margin="0,34,0,22" />
+                <TextBlock Text="КАБІНЕТ СПІВРОБІТНИКА" FontSize="11" FontWeight="SemiBold"
+                           Foreground="#D9B98C" />
             </StackPanel>
-        </Border> 
+        </Grid>
+
+        <Grid Grid.Column="1" Background="#F6F4F0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <Border MaxWidth="500" Margin="36" Padding="44" Background="White"
+                        CornerRadius="22" VerticalAlignment="Center">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="28" ShadowDepth="2" Opacity="0.10" Color="#47352B" />
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="Вхід до системи" FontSize="29" FontWeight="SemiBold"
+                                   Foreground="#47352B" />
+                        <TextBlock Text="Введіть дані облікового запису співробітника"
+                                   FontSize="14" Foreground="#7D7168" Margin="0,8,0,32"
+                                   TextWrapping="Wrap" />
+
+                        <TextBlock Text="Логін" FontSize="13" FontWeight="SemiBold" Foreground="#59483E" />
+                        <TextBox x:Name="textBoxLogin" materialDesign:HintAssist.Hint="Ваш логін"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Margin="0,4,0,22" Padding="0,8" />
+
+                        <TextBlock Text="Пароль" FontSize="13" FontWeight="SemiBold" Foreground="#59483E" />
+                        <PasswordBox x:Name="passBox" materialDesign:HintAssist.Hint="Ваш пароль"
+                                     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                                     Margin="0,4,0,14" Padding="0,8" />
+
+                        <Button x:Name="authButton" Content="Увійти до кабінету"
+                                Click="Button_Auth_Click" Height="48" Margin="0,12,0,0"
+                                Background="#80614B" Foreground="White" FontSize="15"
+                                FontWeight="SemiBold" BorderThickness="0" />
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,26,0,0">
+                            <TextBlock Text="Ще не маєте облікового запису?" Foreground="#7D7168"
+                                       VerticalAlignment="Center" />
+                            <Button Content="Зареєструватися" Click="Button_Reg_Click"
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Foreground="#80614B" FontWeight="SemiBold" Padding="8,4" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

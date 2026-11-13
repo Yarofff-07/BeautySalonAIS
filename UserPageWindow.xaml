@@ -4,28 +4,60 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UsersApp"
-               mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Додаток для користувачів" Height="450" Width="800" Cursor="">
-    <Grid Background="#205637">
-        <Border MinWidth="400" Margin="15" Background="White" VerticalAlignment="Center" Padding="30" MaxWidth="550" CornerRadius="20">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="30" Color="LightGreen" ShadowDepth="0"></DropShadowEffect>
-            </Border.Effect>
-            <StackPanel>
-                <TextBlock Text="Кабінет користувача" FontSize="30" FontWeight="Bold" Margin="0 0 0 20"/>
-                <ListView x:Name="listOfUsers" Margin="10">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <TextBlock Text="{Binding Login}" FontWeight="Bold"/>
-                                <TextBlock Text=", "/>
-                                <TextBlock Text="{Binding Email}"/>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+        mc:Ignorable="d"
+        Title="Beauty Salon — кабінет співробітника"
+        Height="760" Width="1180" MinHeight="620" MinWidth="950"
+        WindowStartupLocation="CenterScreen" Background="#F6F4F0">
+    <Window.Resources>
+        <Style x:Key="NavigationButtonStyle" TargetType="Button">
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="Margin" Value="0,3" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#F8F4F0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Background="#47352B">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Margin="16,20,16,24">
+                <Border Width="82" Height="36" Background="#F8F4F0" CornerRadius="4"
+                        HorizontalAlignment="Left">
+                    <TextBlock Text="LOGO" Foreground="#47352B" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" FontWeight="SemiBold" />
+                </Border>
             </StackPanel>
-        </Border>
+
+            <StackPanel Grid.Row="1" Margin="10,0">
+                <Button x:Name="homeNavButton" Content="Головна" Click="HomeNav_Click"
+                        Style="{StaticResource NavigationButtonStyle}" />
+                <Button x:Name="clientsNavButton" Content="Клієнти" Click="ClientsNav_Click"
+                        Style="{StaticResource NavigationButtonStyle}" />
+                <Button x:Name="servicesNavButton" Content="Послуги" Click="ServicesNav_Click"
+                        Style="{StaticResource NavigationButtonStyle}" />
+                <Button x:Name="mastersNavButton" Content="Майстри" Click="MastersNav_Click"
+                        Style="{StaticResource NavigationButtonStyle}" />
+                <Button x:Name="scheduleNavButton" Content="Розклад" Click="ScheduleNav_Click"
+                        Style="{StaticResource NavigationButtonStyle}" />
+            </StackPanel>
+
+            <Button x:Name="settingsNavButton" Grid.Row="2" Content="Налаштування" Click="SettingsNav_Click"
+                    Style="{StaticResource NavigationButtonStyle}"
+                    Margin="10,12,10,18" />
+        </Grid>
+
+        <ContentControl x:Name="ContentHost" Grid.Column="1" Background="#F6F4F0" />
     </Grid>
 </Window>
